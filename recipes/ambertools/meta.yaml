@@ -1,40 +1,52 @@
-{% set name = "AmberTools" %}
-{% set version = "19" %}
+{% set ambertools_url = "../../../" %} # point to $AMBERHOME
+{% set version = "0" %}
+{% set bugfix_version = "0" %} 
+{% set build_number = "0" %}
+{% set ambertools_version = version + '.' + bugfix_version %}
+
+# if this recipe is inside AmberTools/src, you do not need to worry about this
+{% set ambertools_fn = "AmberTools" + version + ".tar.bz2" %}
+
+# AMBER_BUILD_TASK = {'', 'ambermini', 'ambertools'}
+{% if os.getenv('AMBER_BUILD_TASK', 'ambertools').lower() == 'ambermini' %}
+     {%set ambertools_package = 'ambermini' %}
+     {% set summary = "ambermini, a subset of AmberTools" %}
+{% elif os.getenv('AMBER_BUILD_TASK', 'ambertools').lower() == 'ambertools' %}
+     {%set ambertools_package = 'ambertools' %}
+     {% set summary = "AmberTools is a set of programs for biomolecular simulation and analysis." %}
+{% else %}
+     {%set ambertools_package = os.getenv("AMBER_BUILD_TASK", "").lower() + '-ambertools' %}
+     {% set summary = ambertools_package %}
+{% endif %}
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: {{ ambertools_package }}
+  version: {{ ambertools_version }}
 
-source:
-  url: https://bitbucket.org/simonbray/ambertools/raw/9e3a9289ca97a2ba0f58cebdfb102c88e8912d9f/AmberTools19.tar.bz2
-    #https://bitbucket.org/simonbray/ambertools/raw/3695b7a3444b5a45d54652f93d121dcfbf0e1a83/AmberTools19.tar.bz2
-  sha256: 8315929b8e1d597907405ddab31d41c556a777f7df7df98745ee9d08c980bae5
-    # 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
+# Note: will not work for win
+# build from URL
+# source:
+#   fn : {{ ambertools_fn }}
+#   url : {{ ambertools_url }}
+  
+  # Un-comment if using local path, must use file:/// if using tar file
+  # url : file:///home/haichit/AmberTools{{version}}.tar.bz2
+  # or
 
 build:
-  number: 0
-  skip: True  # [win]
+  number: {{ build_number }}
+  script_env:
+    - AMBER_BUILD_TASK
+    - AMBER_SRC
 
 requirements:
   build:
-    - {{ compiler('fortran') }}
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - cmake
-    - bc
-    - flex
-    - patch
-    - tcsh
-    - bison
-  host:
-    - python <3
-    - pip
-    - zlib
-    - bzip2
+    - python
+    - numpy
+    - cython
   run:
-    - python <3
-
-# bc csh flex gfortran g++ xorg-dev zlib1g-dev libbz2-dev patch
+    - python
+    - numpy
 
 test:
   commands:
@@ -43,20 +55,16 @@ test:
     - prepgen -h
 
 about:
-  home: http://ambermd.org/AmberTools.php
-  license: GPL
-  license_family: GPL
-  license_file: AmberTools/LICENSE
-  summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
-
-  # The remaining entries in this section are optional, but recommended.
-  description: |
+    home: https://ambermd.org
+    license: GNU General Public License (GPL)
+    summary: {{ summary }}
+    description: |
     AmberTools is a set of programs for biomolecular simulation and analysis. 
     They are designed to work well with each other, and with the “regular” Amber 
     suite of programs.  You can perform many simulation tasks with AmberTools, 
     and you can do more extensive simulations with the combination of AmberTools 
     and Amber itself. 
-
+    
 extra:
   recipe-maintainers:
     - simonbray
