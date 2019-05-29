@@ -13,10 +13,6 @@ else
     echo "Not conda build"
 fi
 
-amber_build_task=`python -c "import os; print(os.getenv('AMBER_BUILD_TASK', 'ambertools').lower())"`
-echo "amber_build_task", ${amber_build_task}
-which python
-
 function test_nab(){
     testfile="test_nab"
     nabfile="dna.nab"
@@ -39,13 +35,12 @@ function test_ambermini(){
     antechamber -h
     tleap -h
     sqm -h
+    # acdoctor -h # turn off
+    # charmmgen -h # turn off
+    # match_atomname -h
     am1bcc -h
     atomtype -h
     bondtype -h
-    # acdoctor -h
-    # charmmgen -h
-    # match_atomname -h
-    espgen -h
     parmchk2 -h
     prepgen -h
     residuegen -h
@@ -64,12 +59,17 @@ function naive_test(){
     which xleap
 }
 
-function extra_test(){
-    naive_test
+function test_python(){
     python -c "import parmed; print(parmed)"
     python -c "import pytraj; pytraj.run_tests()"
     python -c "import sander; print(sander)"
     python -c "import pdb4amber; print(pdb4amber)"
+    parmed -h
+    pdb4amber -h
+}
+
+function extra_test(){
+    naive_test
     sander --version
     sander.LES --version
     mdgx --help
@@ -78,34 +78,10 @@ function extra_test(){
     which nab
     UnitCell
     resp
-    parmed --help
-    pdb4amber --help
-    packmol-memgen --help
+    which parmed
+    which pdb4amber
 }
 
-case ${amber_build_task} in
-    "ambertools")
-        test_ambermini
-        extra_test
-        echo "OK"
-    ;;
-    "ambermini")
-        test_ambermini
-        echo "OK"
-    ;;
-    "nab")
-        test_nab
-        echo "OK"
-    ;;
-    "pytraj"|"parmed"|"pdb4amber")
-        $PYTHON -c "import ${amber_build_task}; print(${amber_build_task})"
-        echo "OK"
-    ;;
-    "pysander")
-        $PYTHON -c "import sander; print(sander)"
-        echo "OK"
-    ;;
-    *)
-        which ${amber_build_task}
-    ;;
-esac
+test_ambermini
+extra_test
+echo "OK"
