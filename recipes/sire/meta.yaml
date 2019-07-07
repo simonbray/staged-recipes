@@ -1,0 +1,117 @@
+
+package:
+    name: sire
+    version: 2019.1.0
+
+source:
+    sha256: 4710e9e398f8b9564e14f9223c7f828d8bac2926f24994575b75dcb39386d77b
+    url: https://objectstorage.eu-frankfurt-1.oraclecloud.com/p/WaA-Qcb9K3rm_E6VeekU_gjAz3bSRH9zTVp6cTsGbcE/n/chryswoods/b/sire_releases/o/sire_conda_latest_linux.tar.bz2
+
+build:
+    number: 0
+    skip: True  # [osx]
+
+requirements:
+    # build:
+    #     - binutils_impl_linux-64 2.31.1 h6176602_1
+    #     - binutils_linux-64 2.31.1 h6176602_3
+    #     - gcc_impl_linux-64 7.3.0 habb00fd_1
+    #     - gcc_linux-64 7.3.0 h553295d_3
+    #     - gxx_impl_linux-64 7.3.0 hdf63c60_1
+    #     - gxx_linux-64 7.3.0 h553295d_3
+    #     - libgcc-ng 8.2.0 hdf63c60_1
+    #     - libstdcxx-ng 8.2.0 hdf63c60_1
+    # host:
+    #     - boost 1.69.0 py37h8619c78_1001
+    #     - boost-cpp 1.69.0 h11c811c_1000
+    #     - bzip2 1.0.6 h14c3975_1002
+    #     - ca-certificates 2019.3.9 hecc5488_0
+    #     - certifi 2019.3.9 py37_0
+    #     - cftime 1.0.3.4 py37h3010b51_1000
+    #     - curl 7.64.1 hf8cf82a_0
+    #     - dbus 1.13.6 he372182_0
+    #     - expat 2.2.5 hf484d3e_1002
+    #     - fftw3f 3.3.4 2
+    #     - fontconfig 2.13.1 he4413a7_1000
+    #     - freetype 2.10.0 he983fc9_0
+    #     - gettext 0.19.8.1 hc5be6a0_1002
+    #     - glib 2.58.3 hf63aee3_1001
+    #     - gsl 2.4 h294904e_1006
+    #     - gst-plugins-base 1.14.4 hdf3bae2_1001
+    #     - gstreamer 1.14.4 h66beb1c_1001
+    #     - hdf4 4.2.13 h9a582f1_1002
+    #     - hdf5 1.10.4 nompi_h3c11f04_1106
+    #     - icu 58.2 hf484d3e_1000
+    #     - jpeg 9c h14c3975_1001
+    #     - krb5 1.16.3 h05b26f9_1001
+    #     - libblas 3.8.0 8_openblas
+    #     - libcblas 3.8.0 8_openblas
+    #     - libcurl 7.64.1 hda55be3_0
+    #     - libedit 3.1.20170329 hf8c457e_1001
+    #     - libffi 3.2.1 he1b5a44_1006
+    #     - libgcc-ng 8.2.0 hdf63c60_1
+    #     - libgfortran-ng 7.3.0 hdf63c60_0
+    #     - libiconv 1.15 h516909a_1005
+    #     - liblapack 3.8.0 8_openblas
+    #     - libnetcdf 4.6.2 hbdf4f91_1001
+    #     - libpng 1.6.37 hed695b0_0
+    #     - libssh2 1.8.2 h22169c7_2
+    #     - libstdcxx-ng 8.2.0 hdf63c60_1
+    #     - libuuid 2.32.1 h14c3975_1000
+    #     - libxcb 1.13 h14c3975_1002
+    #     - libxml2 2.9.9 h13577e0_0
+    #     - ncurses 6.1 hf484d3e_1002
+    #     - netcdf4 1.5.0.1 py37had58050_0
+    #     - numpy 1.16.3 py37he5ce36f_0
+    #     - openblas 0.3.6 h6e990d7_1
+    #     - openmm 7.3.1 py37_cuda92_rc_2
+    #     - openssl 1.1.1b h14c3975_1
+    #     - pcre 8.41 hf484d3e_1003
+    #     - pip 19.1 py37_0
+    #     - pthread-stubs 0.4 h14c3975_1001
+    #     - pyqt 5.9.2 py37h05f1152_2
+    #     - python 3.7.3 h5b0a415_0
+    #     - qt 5.9.7 h52cfd70_1
+    #     - readline 7.0 hf8c457e_1001
+    #     - setuptools 41.0.1 py37_0
+    #     - sip 4.19.8 py37hf484d3e_1000
+    #     - sqlite 3.26.0 h67949de_1001
+    #     - tbb 2019.4 h6bb024c_0
+    #     - tbb-devel 2019.4 h6bb024c_0
+    #     - tk 8.6.9 h84994c4_1001
+    #     - wheel 0.33.1 py37_0
+    #     - xorg-libxau 1.0.9 h14c3975_0
+    #     - xorg-libxdmcp 1.1.3 h516909a_0
+    #     - xz 5.2.4 h14c3975_1001
+    #     - zlib 1.2.11 h14c3975_1004
+    run:
+        - boost >=1.69.0,<2.0a0
+        - gsl >=2.4,<2.5.0a0
+        - gsl >=2.4,<3.0a0
+        - libgcc-ng >=7.3.0
+        - libstdcxx-ng >=7.3.0
+        - netcdf4 >=1.5.0.1,<2.0a0
+        - openmm >=7.3.1,<8.0a0
+        - pyqt >=5.9.2,<5.10.0a0
+        - pyqt >=5.9.2,<6.0a0
+        - python >=3.7,<3.8.0a0
+        - tbb >=2019.4
+        - tbb >=2019.4,<2020.0a0
+        - tbb-devel >=2019.4,<2020.0a0
+test:
+    imports:
+        - Sire
+about:
+    dev_url: https://github.com/michellab/Sire
+    doc_url: https://siremol.org
+    home: https://github.com/michellab/Sire
+    license: GPL-2.0
+    license_file: /home/sireuser/Sire/docker/sire-conda-devel/recipe/LICENSE
+    summary: An advanced, multiscale, molecular simulation framework.
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - chrisbarnettster
+        - tsenapathi
+        - simonbray
